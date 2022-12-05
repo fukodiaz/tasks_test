@@ -1,5 +1,7 @@
 import {combineReducers} from 'redux';
 
-export default combineReducers({
+import updateProjects from './projects';
 
+export default combineReducers({
+	projects: updateProjects,
 });

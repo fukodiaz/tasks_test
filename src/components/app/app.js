@@ -9,7 +9,6 @@ import './app.scss';
 const App = () => {
 	return (
 		<main className='mainWrapper'>
-			
 			<Routes>
 				<Route path='/' exact element={<Projects />} />
 				<Route path='/tasks' element={<PageTasks />} />
