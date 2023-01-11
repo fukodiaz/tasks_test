@@ -8,7 +8,19 @@ const changeProject = (payload) => ({
 	payload
 });
 
+const createNewTask = (payload) => ({
+	type: 'CREATE_NEW_TASK',
+	payload
+});
+
+const editeTask = (payload) => ({
+	type: 'EDITE_TASK',
+	payload
+});
+
 export {
 	obtainCurProject,
-	changeProject
+	changeProject,
+	createNewTask,
+	editeTask
 }

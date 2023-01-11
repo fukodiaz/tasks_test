@@ -3,6 +3,7 @@
 	justify-content: center;
 	align-items: center;
 	min-width: 280px;
+	max-width: 280px;
 	min-height: 450px;
 	// border: 1px solid rgb(221, 32, 32);
 	// border-radius: 7px;
@@ -14,5 +15,6 @@
 }
 .headingProject {
 	font-size: 27px;
+	text-align: center;
 	color: rgba(0,0,0,.8);
 }

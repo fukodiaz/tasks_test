@@ -6,8 +6,10 @@ const ProjectItem = ({heading='', number='', }) => {
 
 	return (
 		<div className='contentProject'>
-			<span className='spanNumber'>{`${number}.`}</span>
-			<h2 className='headingProject'>{heading}</h2>
+			<h2 className='headingProject'>
+				<span className='spanNumber'>{`${number}.`}</span>
+				{heading}
+			</h2>
 		</div>
 	);
 };

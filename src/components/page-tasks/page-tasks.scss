@@ -1,3 +1,18 @@
+.containerTasks {
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	max-width: 920px;//911px;
+	margin: 0 auto;
+} 
+
+.boxBtnCreateTask {
+	//display: inline-flex;
+}
+.btnCreateTask {
+	display: inline-flex;
+}
+
 .listColumnsStatus {
 	display: flex;
 	flex-wrap: wrap;
@@ -9,6 +24,7 @@
 		border: 2px solid rgb(221, 32, 32);
 	}
 	li:nth-of-type(3n) {
+		margin-right: 0;
 		border: 2px solid rgb(14, 154, 248);
 	}
 }
@@ -27,12 +43,18 @@
 	text-align: center;
 }
 
-.listItemsTask {
+.boxTask {
 	margin: 0 7px 13px;
+	box-sizing: border-box;
 	padding: 7px 9px;
+	max-width: 267px;
 	border: 1px solid #000;
 	border-radius: 5px;
 	cursor: grab;
+}
+
+.listItemsTask {
+	display: flex;
 }
 
 .numberTask {
@@ -44,4 +66,14 @@
 .titleTask {
 	display: inline-block;
 	border: none !important;
+}
+
+.boxBtnsTask {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.btnDetails {
+	margin-right: 5px;
 }
