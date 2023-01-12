@@ -156,7 +156,7 @@ const updateProjects = (state = initialState, action) => {
 				novelDataProject = {
 					...curProject, 
 					listTasks: [...curProject.listTasks.slice(0, idxParentSubtask), newBasicTask,
-									...curProject.listTasks.slice(idxParentSubtask + 1)]};
+									...curProject.listTasks.slice(idxParentSubtask + 1), newSubtask]};
 			} else {
 				newBasicTask = {
 					...task,
@@ -177,9 +177,18 @@ const updateProjects = (state = initialState, action) => {
 			}
 		case 'EDITE_TASK':
 			const currProject = state.dataProjects[state.idxCurProject];
-			const idTask = action.payload.id;
-			const novListTasks = [...currProject.listTasks.slice(0, idTask), action.payload,
-										...currProject.listTasks.slice(idTask+1)];
+			const {id: idTask=null, idParentTask: idParent = null} = action.payload;
+			let idEditTask=null;
+			if (!idParent && idParent !== 0) {
+				console.log('editTask');
+				idEditTask = idTask;
+			} else {
+				console.log('editSubtask');
+				idEditTask = currProject.listTasks.findIndex(({id, idParentTask=null}) => 
+												idParentTask === idParent  && id === idTask);
+			}
+			const novListTasks = [...currProject.listTasks.slice(0, idEditTask), action.payload,
+				...currProject.listTasks.slice(idEditTask+1)];
 			const novProject = {...currProject, listTasks: novListTasks};
 			const novProjects = renewProjects(state, novProject);
 			window.localStorage.setItem('dataProjects', JSON.stringify(novProjects));

@@ -23,7 +23,8 @@ const ModalTask = (props) => {
 				status: 'Queue',
 				priority: 'medium',
 				timeCreation: new Date().getTime() / 1000,
-				timeEnding: 1734909669
+				timeEnding: 1734909669,
+				idParentTask: idParentSubtask || idParentSubtask === 0 ? idParentSubtask : null 
 			});
 		}
 	}, []);
@@ -99,7 +100,8 @@ const ModalTask = (props) => {
 							!flagCreation ? (
 								<tr className='rowTask'>
 									<td colSpan={2}>
-										{`№ ${dataTask.id + 1}`}
+										{task.idParentTask || task.idParentTask === 0 ? 
+											`№ ${task.idParentTask + 1}.${task.id + 1}` : `№ ${task.id + 1}`}
 									</td>
 								</tr>) : null
 						}
@@ -143,7 +145,7 @@ const ModalTask = (props) => {
 								}
 							</td>
 						</tr>
-						{
+						{/* {
 							!flagCreation && !flagEdite ? (
 								<tr className='rowTask'>
 									<td>Время в работе</td>
@@ -152,7 +154,7 @@ const ModalTask = (props) => {
 									</td>
 								</tr>
 							) : null
-						}
+						} */}
 						<tr className='rowTask'>
 							<td>Дата окончания</td>
 							<td>

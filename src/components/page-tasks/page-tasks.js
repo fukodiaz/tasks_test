@@ -48,6 +48,8 @@ const PageTasks = (props) => {
 	const onDragStart = (e, column, task) => {
 		setActiveColumn(column);
 		setActiveTask(task);
+		console.log(task, 88);
+		console.log(column, 99);
 	};
 
 	const onDragEnd = (e) => {
@@ -139,177 +141,46 @@ const PageTasks = (props) => {
 							<h3 className='titleColumn'>{column.title}</h3>
 							{
 								column.listTasks.length ? column.listTasks.map(task => {
-									// let subtasks = null;
-									// if (task?.subtasks?.length) {
-									// 	subtasks = 
-									// 		<>
-									// 			{task.subtasks.map(subtask => 
-									// 				<div className='boxTask'
-									// 					draggable={true}
-									// 					onDrop={(e) => onDrop(e, column, subtask)}
-									// 					onDragStart = {(e) => onDragStart(e, column, subtask)}
-									// 					onDragEnd={e => onDragEnd(e)}
-									// 					onDragOver={e => onDragOver(e)}
-									// 					onDragLeave={e => onDragLeave(e)}
-									// 				>
-									// 					<ul className='listItemsTask'>
-									// 						<li className='numberTask'>
-									// 							{`${task.id+1}.${subtask.id+1}.`}
-									// 						</li>
-									// 						<li className='titleTask'>
-									// 							{/* <span className='numberTask'>{`${task.id+1}.`}</span> */}
-									// 							{subtask.title}
-									// 						</li>
-									// 					</ul>
-									// 					<div className='boxBtnsTask'>
-									// 						{/* <button className='btnSubtask' type='button'
-									// 									onClick={() => onCreateSubtask(task.id)}>
-									// 							+ подзадача
-									// 						</button> */}
-									// 						<button className='btnDetails' type='button'
-									// 									onClick={() => onShowDetails(subtask)}>
-									// 							Подробнее
-									// 						</button>
-									// 						<button className='btnEditing' type='button'
-									// 									onClick={() => onEditeTask(subtask)}>
-									// 							Редактир
-									// 						</button>
-
-									// 					</div>
-									// 				</div>
-									// 			)}
-									// 		</>
-									// 	}
+									
 									return (
-										<>
-											<div className='boxTask'
-													draggable={true}
-													onDrop={(e) => onDrop(e, column, task)}
-													onDragStart = {(e) => onDragStart(e, column, task)}
-													onDragEnd={e => onDragEnd(e)}
-													onDragOver={e => onDragOver(e)}
-													onDragLeave={e => onDragLeave(e)}
-											>
-												<ul className='listItemsTask'>
-													<li className='numberTask'>
-														{`${task.id+1}.`}
-													</li>
-													<li className='titleTask'>
-														{/* <span className='numberTask'>{`${task.id+1}.`}</span> */}
-														{task.title}
-													</li>
-												</ul>
-												<div className='boxBtnsTask'>
+										
+										<div className='boxTask'
+												draggable={true}
+												onDrop={(e) => onDrop(e, column, task)}
+												onDragStart = {(e) => onDragStart(e, column, task)}
+												onDragEnd={e => onDragEnd(e)}
+												onDragOver={e => onDragOver(e)}
+												onDragLeave={e => onDragLeave(e)}
+										>
+											<ul className='listItemsTask'>
+												<li className='numberTask'>
+													{task.idParentTask ? `${task.idParentTask+1}.${task.id+1}.` : `${task.id+1}.`}
+												</li>
+												<li className='titleTask'>
+													{/* <span className='numberTask'>{`${task.id+1}.`}</span> */}
+													{task.title}
+												</li>
+											</ul>
+											<div className='boxBtnsTask'>
+												{!task.idParentTask ? (
 													<button className='btnSubtask' type='button'
 																onClick={() => onCreateSubtask(task.id)}>
 														+ подзадача
-													</button>
-													<button className='btnDetails' type='button'
-																onClick={() => onShowDetails(task)}>
-														Подробнее
-													</button>
-													<button className='btnEditing' type='button'
-																onClick={() => onEditeTask(task)}>
-														Редактир
-													</button>
+													</button>) : null
+												}
+												<button className='btnDetails' type='button'
+															onClick={() => onShowDetails(task)}>
+													Подробнее
+												</button>
+												<button className='btnEditing' type='button'
+															onClick={() => onEditeTask(task)}>
+													Редактир
+												</button>
 
-												</div>
 											</div>
-											{/* {subtasks} */}
-										</>
+										</div>
 									);
 								}) : null
-							}
-							{
-								column.listTasks.length ? column.listTasks.map(task => {
-									if (task?.subtasks?.length) {
-										return task.subtasks.map(subtask => {
-											if (subtask.status === column.title) {
-												return (
-													<div className='boxTask'
-														draggable={true}
-														onDrop={(e) => onDrop(e, column, subtask)}
-														onDragStart = {(e) => onDragStart(e, column, subtask)}
-														onDragEnd={e => onDragEnd(e)}
-														onDragOver={e => onDragOver(e)}
-														onDragLeave={e => onDragLeave(e)}
-													>
-														<ul className='listItemsTask'>
-															<li className='numberTask'>
-																{`${task.id+1}.${subtask.id+1}.`}
-															</li>
-															<li className='titleTask'>
-																{/* <span className='numberTask'>{`${task.id+1}.`}</span> */}
-																{subtask.title}
-															</li>
-														</ul>
-														<div className='boxBtnsTask'>
-															{/* <button className='btnSubtask' type='button'
-																		onClick={() => onCreateSubtask(task.id)}>
-																+ подзадача
-															</button> */}
-															<button className='btnDetails' type='button'
-																		onClick={() => onShowDetails(subtask)}>
-																Подробнее
-															</button>
-															<button className='btnEditing' type='button'
-																		onClick={() => onEditeTask(subtask)}>
-																Редактир
-															</button>
-
-														</div>
-													</div>)
-											}
-									}
-								)}
-								}): null
-							} 
-							{
-								columns.map(column =>
-									column?.listTasks.map(task => {
-										if (task?.subtasks.length && task.subtasks.some(subtask => subtask.status === column.title)) {
-											return task.subtasks.map(subtask => {
-												if (subtask.status === column.title) {
-													console.log(column.title, 12, subtask.status, 12, columns);
-													return (
-														<div className='boxTask'
-															draggable={true}
-															onDrop={(e) => onDrop(e, column, subtask)}
-															onDragStart = {(e) => onDragStart(e, column, subtask)}
-															onDragEnd={e => onDragEnd(e)}
-															onDragOver={e => onDragOver(e)}
-															onDragLeave={e => onDragLeave(e)}
-														>
-															<ul className='listItemsTask'>
-																<li className='numberTask'>
-																	{`${task.id+1}.${subtask.id+1}...`}
-																</li>
-																<li className='titleTask'>
-																	{/* <span className='numberTask'>{`${task.id+1}.`}</span> */}
-																	{subtask.title}
-																</li>
-															</ul>
-															<div className='boxBtnsTask'>
-																{/* <button className='btnSubtask' type='button'
-																			onClick={() => onCreateSubtask(task.id)}>
-																	+ подзадача
-																</button> */}
-																<button className='btnDetails' type='button'
-																			onClick={() => onShowDetails(subtask)}>
-																	Подробнее
-																</button>
-																<button className='btnEditing' type='button'
-																			onClick={() => onEditeTask(subtask)}>
-																	Редактир
-																</button>
-	
-															</div>
-														</div>)
-												}
-											})
-										}
-									}
-									))
 							}
 						</li>
 						) : null
