@@ -151,3 +151,74 @@
 	margin-right: 14px;
 	background: rgb(74, 190, 80);
 }
+
+.messErr {
+	margin-bottom: 12px;
+	text-align: center;
+	width: 100%;
+	color: rgb(252, 47, 47);
+}
+
+.containerListsComments {
+	width: 85%;
+	& ul:first-child {
+		width: 100%;
+	}
+}
+
+.listComments {
+	width: 91%;
+	margin-left: auto;
+}
+
+.itemComment {
+	position: relative;
+	margin-bottom: 8px;
+	//margin-left: auto;
+	box-sizing: border-box;
+	//padding: 7px 11px 18px;
+	//width: 75%;
+	//border-radius: 6px;
+	//background-color: rgba(142, 211, 243, .2);
+}
+
+.boxComment {
+	position: relative;
+	margin-bottom: 8px;
+	box-sizing: border-box;
+	padding: 7px 11px 18px;
+	width: 100%;
+	border-radius: 6px;
+	background-color: rgba(142, 211, 243, .2);
+}
+
+.authorComment,
+.contentComment {
+	box-sizing: border-box;
+	padding: 4px 9px;
+	word-break: break-all;
+	border-radius: 4px;
+	background-color: rgba(159, 209, 245, .3);
+}
+
+.authorComment {
+	margin-bottom: 7px;
+}
+
+.timeComment {
+	box-sizing: border-box;
+	padding-right:	2px;
+	font-size: 14px;
+	text-align: right;
+	color: rgb(104, 98, 98);
+}
+
+.btnAnswer {
+	position: absolute;
+	right: 20px;
+	bottom: 3px;
+	display: inline-flex;
+	font-size: 22px;
+	line-height: 10px;
+	background: mediumaquamarine;
+}

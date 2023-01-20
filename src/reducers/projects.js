@@ -118,6 +118,26 @@ const renewProjects = (state, newProject) => {
 		...state.dataProjects.slice(state.idxCurProject + 1)];
 };
 
+const addAnswerToComment = (data, idActiveComment, comment) => {
+	return data.reduce((sum, cur) => {
+		if (cur.id !== idActiveComment) {
+			if (cur?.comments?.length) {
+				sum.push({...cur, comments: addAnswerToComment(cur.comments, idActiveComment, comment)})
+			} else {
+				sum.push({...cur})
+			}
+			return sum;
+		} else {
+			if (cur?.comments?.length) {
+				sum.push({...cur, comments: [...cur.comments, comment]})
+			} else {
+				sum.push({...cur, comments: [comment]})
+			}
+			return sum;
+		}
+	}, []);
+};
+
 const updateProjects = (state = initialState, action) => {
 
 	switch (action.type) {
@@ -180,10 +200,8 @@ const updateProjects = (state = initialState, action) => {
 			const {id: idTask=null, idParentTask: idParent = null} = action.payload;
 			let idEditTask=null;
 			if (!idParent && idParent !== 0) {
-				console.log('editTask');
 				idEditTask = idTask;
 			} else {
-				console.log('editSubtask');
 				idEditTask = currProject.listTasks.findIndex(({id, idParentTask=null}) => 
 												idParentTask === idParent  && id === idTask);
 			}
@@ -196,6 +214,40 @@ const updateProjects = (state = initialState, action) => {
 				...state,
 				dataProjects: novProjects,
 				listTasksByStatus: defineListTasksByStatus(novProject.listTasks, state.listTasksByStatus)
+			}
+		case 'ADD_COMMENT':
+			const crtProject = state.dataProjects[state.idxCurProject];
+			const {task: dataTask, comment, idActiveComment} = action.payload;
+			const {id: idxTask=null, idParentTask: idxParent = null} = dataTask;
+			let idxEditTask=null;
+
+			if (!idxParent && idxParent !== 0) {
+				idxEditTask = idxTask;
+			} else {
+				idxEditTask = crtProject.listTasks.findIndex(({id, idParentTask=null}) => 
+												idParentTask === idxParent  && id === idxTask);
+			}
+			
+			let novTask = {};
+			if (idActiveComment) { //ситуация с ответом на уже существующий комментарий
+				const listComments = addAnswerToComment(dataTask?.comments, idActiveComment, comment); 
+				novTask = {...dataTask, comments: listComments};
+			} else {
+				novTask = {...dataTask, comments: [...dataTask.comments, comment]};
+			}
+			
+			const novelListTasks = [...crtProject.listTasks.slice(0, idxEditTask), novTask,
+				...crtProject.listTasks.slice(idxEditTask+1)];
+			const novelProject = {...crtProject, listTasks: novelListTasks};
+			const nvlProjects = renewProjects(state, novelProject);
+			window.localStorage.setItem('dataProjects', JSON.stringify(nvlProjects));
+			
+			console.log(defineListTasksByStatus(novelProject.listTasks, state.listTasksByStatus), 444);
+
+			return {
+				...state,
+				dataProjects: nvlProjects,
+				listTasksByStatus: defineListTasksByStatus(novelProject.listTasks, state.listTasksByStatus)
 			}
 		default:
 			return state;

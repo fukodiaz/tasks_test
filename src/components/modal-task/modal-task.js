@@ -1,20 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch } from 'react-redux';
 
+import { useSelector, useDispatch } from 'react-redux';
 import {createNewTask, editeTask} from '../../actions';
 
 import Modal from '../modal';
+import FormComments from '../form-comments';
 import DateSelector from '../date-selector';
 import Select from '../select';
-import {dateTransform} from '../../utils';
+import {dateTransform, dateTransform_2} from '../../utils';
 import './modal-task.scss';
 
 const ModalTask = (props) => {
 	const {onSwitch, dataTask= {}, flagCreation, flagEdite, idParentSubtask} = props;
+	const listTasksByStatus = useSelector(state => state.projects.listTasksByStatus);
 
 	const dispatch = useDispatch();
 	const [task, setTask] = useState(dataTask);
 	const [emptyFields, setEmptyFields] = useState(false);
+	const [flagAnswer, setFlagAnswer] = useState(false);
+	const [idActiveComment, setIdActiveComment] = useState(null);
 
 	useEffect(() => {
 		if (flagCreation) {
@@ -24,10 +28,26 @@ const ModalTask = (props) => {
 				priority: 'medium',
 				timeCreation: new Date().getTime() / 1000,
 				timeEnding: 1734909669,
+				comments: [],
 				idParentTask: idParentSubtask || idParentSubtask === 0 ? idParentSubtask : null 
 			});
 		}
 	}, []);
+
+	useEffect(() => {
+		if (!flagCreation) {
+			let activeColumn = listTasksByStatus?.find(({title}) => title === task.status);
+
+			if (activeColumn?.listTasks?.length && (task?.idParentTask || task?.idParentTask === 0)) {
+				setTask(
+					activeColumn?.listTasks.find(({idParentTask, id}) => 
+							idParentTask === task.idParentTask && id === task.id)
+				);
+			} else {
+				setTask(activeColumn?.listTasks.find(({id}) => id === task.id));
+			}
+		}
+	}, [listTasksByStatus]);
 
 	const listStatus = [
 		{id: 0, label: 'Queue'},
@@ -57,7 +77,7 @@ const ModalTask = (props) => {
 
 	useEffect(() => {
 		setEmptyFields(false);
-	}, [task.title, task.description]);
+	}, [task?.title, task?.description]);
 
 	const onCreateTask = (task, idxParentSubtask) => {
 		if (task.title && task.description) {
@@ -76,6 +96,17 @@ const ModalTask = (props) => {
 			setEmptyFields(true);
 		}
 	};
+
+	const onAnswer = (id) => {
+		setFlagAnswer(flag => !flag);
+		setIdActiveComment(id);
+	};
+
+	useEffect(() => {
+		if (!flagAnswer) {
+			setIdActiveComment(null);
+		}
+	}, [flagAnswer]);
 
 	return (
 		<Modal onSwitch={onSwitch}>
@@ -114,7 +145,7 @@ const ModalTask = (props) => {
 											className='headerTask'
 											type='text'
 											name='titleTask'
-											value={task.title}
+											value={task?.title}
 											onChange={e => setTask({...task, title: e.target.value})}
 										/>
 								) : task.title}
@@ -128,7 +159,7 @@ const ModalTask = (props) => {
 										<textarea 
 											className='textareaDescription'
 											name='descriptionTask'
-											value={task.description}
+											value={task?.description}
 											onChange={e => setTask({...task, description: e.target.value})}
 										/>
 									) : task.description}
@@ -174,7 +205,7 @@ const ModalTask = (props) => {
 									{
 										flagCreation || flagEdite ? (
 											<Select 	name='priorityTask'
-														value={{value: task.priority, label: task.priority}}
+														value={{value: task?.priority, label: task?.priority}}
 														onChange={(e) => 
 															setTask({
 																...task,
@@ -207,7 +238,7 @@ const ModalTask = (props) => {
 									{
 										flagCreation || flagEdite ? (
 											<Select 	name='statusTask'
-														value={{value: task.status, label: task.status}}
+														value={{value: task?.status, label: task?.status}}
 														onChange={(e) => 
 															setTask({
 																...task,
@@ -236,7 +267,7 @@ const ModalTask = (props) => {
 					</tbody>
 				</table>
 				{
-					emptyFields ? <p>Необходимо ввести все данные</p> : null
+					emptyFields ? <p className='messErr'>Необходимо ввести все данные</p> : null
 				}
 				{
 					flagCreation || flagEdite ? (
@@ -261,9 +292,65 @@ const ModalTask = (props) => {
 						</div>
 					) : null
 				}
+				{
+					!flagCreation && !flagEdite && !flagAnswer ? <FormComments task={task} /> : null
+				}
+				<div className='containerListsComments'>
+					{
+						!flagCreation && !flagEdite && task?.comments.length ? (
+							<ListComments task={task} comments={task.comments} onAnswer={onAnswer} 
+									flagAnswer={flagAnswer} idActiveComment={idActiveComment} setFlagAnswer={setFlagAnswer} />
+						) : null
+					}
+				</div>
 			</div>
 		</Modal>
 	);
 };
 
 export default ModalTask;
+
+const ListComments = (props) => {
+	const {task, comments, onAnswer, flagAnswer, idActiveComment, setFlagAnswer} = props;
+
+	return (
+		<ul className='listComments'>
+			{
+				comments?.map((item={}) => {
+					const {author, textComment, time, id} = item;
+					return (
+						<li className='itemComment'>
+							<div className='boxComment'>
+								<p className='timeComment'>
+									{dateTransform_2(time)}
+								</p>
+								<p className='authorComment'>
+									{author}
+								</p>
+								<p className='contentComment'>
+									{textComment}
+								</p>
+								<button className='btnAnswer'
+											onClick={() => onAnswer(id)}>
+									...
+								</button>
+							</div>
+							{
+								flagAnswer &&  idActiveComment === id ?
+									<FormComments task={task} flagAnswer={flagAnswer}
+											setFlagAnswer={setFlagAnswer}
+											idActiveComment={idActiveComment} /> : null
+							}
+							{
+								Array.isArray(item.comments) && item.comments.length ? 
+									<ListComments task={task} comments={item.comments} onAnswer={onAnswer}
+										flagAnswer={flagAnswer} idActiveComment={idActiveComment}
+										setFlagAnswer={setFlagAnswer}  /> : null
+							}
+						</li>
+					);
+				})
+			}
+		</ul>
+	);
+};

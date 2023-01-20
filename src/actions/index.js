@@ -18,9 +18,15 @@ const editeTask = (payload) => ({
 	payload
 });
 
+const addComment = (payload) => ({
+	type: 'ADD_COMMENT',
+	payload
+});
+
 export {
 	obtainCurProject,
 	changeProject,
 	createNewTask,
-	editeTask
+	editeTask,
+	addComment
 }
