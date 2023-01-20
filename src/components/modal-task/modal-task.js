@@ -97,8 +97,13 @@ const ModalTask = (props) => {
 		}
 	};
 
-	const onAnswer = (id) => {
-		setFlagAnswer(flag => !flag);
+	const onAnswer = (id, idActiveComment) => {
+		if (id === idActiveComment) {
+			setFlagAnswer(flag => !flag);
+		}
+		if (!idActiveComment) {
+			setFlagAnswer(true);
+		}
 		setIdActiveComment(id);
 	};
 
@@ -331,7 +336,7 @@ const ListComments = (props) => {
 									{textComment}
 								</p>
 								<button className='btnAnswer'
-											onClick={() => onAnswer(id)}>
+											onClick={() => onAnswer(id, idActiveComment)}>
 									...
 								</button>
 							</div>
