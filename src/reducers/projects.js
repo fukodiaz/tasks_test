@@ -65,7 +65,7 @@ const initialState = {
 					},
 					{
 						id: 1,
-						title: 'Написание функционала',
+						title: 'Написать функционал',
 						status: 'Development'
 					}
 				]
@@ -241,8 +241,6 @@ const updateProjects = (state = initialState, action) => {
 			const novelProject = {...crtProject, listTasks: novelListTasks};
 			const nvlProjects = renewProjects(state, novelProject);
 			window.localStorage.setItem('dataProjects', JSON.stringify(nvlProjects));
-			
-			console.log(defineListTasksByStatus(novelProject.listTasks, state.listTasksByStatus), 444);
 
 			return {
 				...state,

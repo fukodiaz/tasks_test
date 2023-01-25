@@ -145,6 +145,10 @@
 	color: #fff;
 	border-radius: 13px;
 	background: rgb(253, 116, 61);
+	&:hover,
+	&:focus {
+		opacity: 0.8;
+	}
 }
 
 .btnConfirm {
@@ -186,7 +190,7 @@
 	position: relative;
 	margin-bottom: 8px;
 	box-sizing: border-box;
-	padding: 7px 11px 18px;
+	padding: 9px 11px 19px;
 	width: 100%;
 	border-radius: 6px;
 	background-color: rgba(142, 211, 243, .2);
@@ -216,9 +220,21 @@
 .btnAnswer {
 	position: absolute;
 	right: 20px;
-	bottom: 3px;
+	bottom: 2px;
 	display: inline-flex;
-	font-size: 22px;
-	line-height: 10px;
-	background: mediumaquamarine;
+	width: 30px;
+	height: 14px;
+	// font-size: 22px;
+	// line-height: 10px;
+	background:   rgb(252, 184, 153);//rgba(221, 173, 175, 0.9);
+	border-radius: 5px;
+	&::after {
+		content: '...';
+		position: absolute;
+		left: 8px;
+		bottom: 6px;
+		font-size: 20px;
+		line-height: 10px;
+		color: rgb(110, 101, 101);
+	}
 }

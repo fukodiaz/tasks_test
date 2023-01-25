@@ -302,7 +302,7 @@ const ModalTask = (props) => {
 				}
 				<div className='containerListsComments'>
 					{
-						!flagCreation && !flagEdite && task?.comments.length ? (
+						!flagCreation && !flagEdite && task?.comments?.length ? (
 							<ListComments task={task} comments={task.comments} onAnswer={onAnswer} 
 									flagAnswer={flagAnswer} idActiveComment={idActiveComment} setFlagAnswer={setFlagAnswer} />
 						) : null
@@ -336,9 +336,7 @@ const ListComments = (props) => {
 									{textComment}
 								</p>
 								<button className='btnAnswer'
-											onClick={() => onAnswer(id, idActiveComment)}>
-									...
-								</button>
+											onClick={() => onAnswer(id, idActiveComment)} />
 							</div>
 							{
 								flagAnswer &&  idActiveComment === id ?

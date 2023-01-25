@@ -5,6 +5,8 @@ import {changeProject} from '../../actions';
 
 import ModalTask from '../modal-task';
 import './page-tasks.scss';
+import threePoints from './three-points.svg';
+import pencil from './pencil.svg';
 
 const PageTasks = (props) => {
 	const currentListTasks = useSelector(state => state.projects.currentListTasks);
@@ -48,23 +50,24 @@ const PageTasks = (props) => {
 	const onDragStart = (e, column, task) => {
 		setActiveColumn(column);
 		setActiveTask(task);
-		console.log(task, 88);
-		console.log(column, 99);
 	};
 
 	const onDragEnd = (e) => {
 		e.target.style.boxShadow = 'none';
+		//e.target.style.border = '1px solid rgba(0,0,0,.5)';
 	};
 
 	const onDragOver = (e) => {
 		e.preventDefault();
 		if (e.target.className === 'boxTask') {
 			e.target.style.boxShadow = '2px 4px 7px rgba(0,0,0,.2)'
+			//e.target.style.border = '2px solid red';
 		}
 	}; 
 
 	const onDragLeave = (e) => {
 		e.target.style.boxShadow = 'none';
+		//e.target.style.border = '1px solid rgba(0,0,0,.5)';
 	};
 
 	const onDropColumn = (e, column) => {
@@ -161,6 +164,14 @@ const PageTasks = (props) => {
 													{task.title}
 												</li>
 											</ul>
+											<button className='btnDetails' type='button'
+															onClick={() => onShowDetails(task)}> 
+												<p className='svgBoxDetails'>
+													<svg width="100%" height="100%">	
+														<use href={`${threePoints}#threePoints`}></use>
+													</svg>
+												</p>
+											</button>
 											<div className='boxBtnsTask'>
 												{!task.idParentTask ? (
 													<button className='btnSubtask' type='button'
@@ -168,13 +179,17 @@ const PageTasks = (props) => {
 														+ подзадача
 													</button>) : null
 												}
-												<button className='btnDetails' type='button'
+												{/* <button className='btnDetails' type='button'
 															onClick={() => onShowDetails(task)}>
 													Подробнее
-												</button>
+												</button> */}
 												<button className='btnEditing' type='button'
 															onClick={() => onEditeTask(task)}>
-													Редактир
+													<p className='svgBoxEditing'>
+														<svg width="100%" height="100%">	
+															<use href={`${pencil}#pencil`}></use>
+														</svg>
+													</p>
 												</button>
 
 											</div>

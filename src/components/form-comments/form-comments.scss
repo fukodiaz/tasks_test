@@ -66,4 +66,8 @@
 	color: #fff;
 	border-radius: 13px;
 	background: rgb(74, 190, 80);
+	&:hover,
+	&:focus {
+		opacity: 0.8;
+	}
 }
