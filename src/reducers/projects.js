@@ -56,25 +56,69 @@ const initialState = {
 			},
 			{
 				id: 1,
-				heading: 'Работа',
+				heading: 'Приложение с прогнозом погоды',
 				listTasks: [
 					{
 						id: 0,
-						title: 'Верстка',
-						status: 'Development'
+						title: 'Установка необходимых зависимостей',
+						description: 'Основной стек - React + Redux с произвольным выбором вспомогательных библиотек',
+						status: 'Development',
+						timeCreation: 1670250069,
+						timeEnding: 1670311269,
+						priority: 'high', 
+						subtasks: [],
+						comments: []
 					},
 					{
 						id: 1,
-						title: 'Написать функционал',
-						status: 'Development'
-					}
+						title: 'Первичная верстка',
+						description: 'Сверстать карточки погоды, разметить основные блоки',
+						status: 'Queue',
+						timeCreation: 1670325669,
+						timeEnding: 1670613669,
+						priority: 'medium', 
+						subtasks: [],
+						comments: []
+					},
+					{
+						id: 2,
+						title: 'Настроить получение данных о погоде',
+						description: 'Для работы с API можно использовать axios',
+						status: 'Queue',
+						timeCreation: 1670325669,
+						timeEnding: 1670613669,
+						priority: 'medium', 
+						subtasks: [],
+						comments: []
+					},
 				]
 			},
 			{
 				id: 2,
-				heading: 'Хобби',
+				heading: 'Приложение-портфолио',
 				listTasks: [
-
+					{
+						id: 0,
+						title: 'Конфиг webpack',
+						description: 'Настроить собственный конфиг webpack',
+						status: 'Queue',
+						timeCreation: 1670250069,
+						timeEnding: 1670311269,
+						priority: 'medium', 
+						subtasks: [],
+						comments: []
+					},
+					{
+						id: 1,
+						title: 'Список проектов',
+						description: 'Сверстать соответствующий список',
+						status: 'Queue',
+						timeCreation: 1670880069,
+						timeEnding: 1670973669,
+						priority: 'high', 
+						subtasks: [],
+						comments: []
+					},
 				]
 			}
 		],

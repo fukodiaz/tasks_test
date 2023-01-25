@@ -30,6 +30,8 @@ const PageTasks = (props) => {
 	//drag and drop
 	const onDrop = (e, column, task) => {
 		e.preventDefault();
+		e.target.style.boxShadow = 'none';
+
 		const idx = activeColumn.listTasks.indexOf(activeTask);
 		activeColumn.listTasks.splice(idx, 1);
 		const idxDrop = column.listTasks.indexOf(task);
@@ -54,20 +56,17 @@ const PageTasks = (props) => {
 
 	const onDragEnd = (e) => {
 		e.target.style.boxShadow = 'none';
-		//e.target.style.border = '1px solid rgba(0,0,0,.5)';
 	};
 
 	const onDragOver = (e) => {
 		e.preventDefault();
 		if (e.target.className === 'boxTask') {
-			e.target.style.boxShadow = '2px 4px 7px rgba(0,0,0,.2)'
-			//e.target.style.border = '2px solid red';
+			e.target.style.boxShadow = '3px 5px 11px rgba(0,0,0,.2)';
 		}
 	}; 
 
 	const onDragLeave = (e) => {
 		e.target.style.boxShadow = 'none';
-		//e.target.style.border = '1px solid rgba(0,0,0,.5)';
 	};
 
 	const onDropColumn = (e, column) => {
