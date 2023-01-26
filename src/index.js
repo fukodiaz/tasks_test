@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter as Router, HashRouter} from 'react-router-dom';
 
 import ErrorBoundry from './components/error-boundry';
 import {TasksServiceProvider} from './components/tasks-service-context';
@@ -18,7 +18,7 @@ root.render(
 		<ErrorBoundry>
 			<TasksServiceProvider value={tasksService}>
 				<Router>
-					<App />
+						<App />
 				</Router>
 			</TasksServiceProvider>
 		</ErrorBoundry>
