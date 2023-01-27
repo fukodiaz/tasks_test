@@ -12,12 +12,13 @@ import TasksService from './services/tasks-service';
 
 const tasksService = new TasksService();
 
+//basename='/tasks_test/'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<Provider store={store}>
 		<ErrorBoundry>
 			<TasksServiceProvider value={tasksService}>
-				<Router>
+				<Router basename=''>
 						<App />
 				</Router>
 			</TasksServiceProvider>
