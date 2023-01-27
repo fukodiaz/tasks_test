@@ -5,14 +5,23 @@
 	z-index: 4500;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	height: 100vh;
 	width: 100vw;
 	background-color: rgba(0, 0, 0, 0.4);
+	overflow: scroll;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar{
+		width: 0px;
+		height: 0px;
+	}
 }
 
 .boxModalContent {
+	position: relative;
+	top: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
