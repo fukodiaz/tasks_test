@@ -197,11 +197,13 @@ const updateProjects = (state = initialState, action) => {
 		case 'CHANGE_PROJECT':
 			// const newDataProject = [...state.dataProjects.slice(0, state.idxCurProject), action.payload, 
 			// 								...state.dataProjects.slice(state.idxCurProject + 1)];
-			const newDataProject = renewProjects(state, action.payload);
+			let {newDataProject=[], listTasksStatus=[]} = action.payload;
+			newDataProject = renewProjects(state, newDataProject);
 			window.localStorage.setItem('dataProjects', JSON.stringify(newDataProject));
 			return {
 				...state,
-				dataProjects: newDataProject
+				dataProjects: newDataProject,
+				listTasksByStatus: listTasksStatus
 			}
 		case 'CREATE_NEW_TASK':
 			const {task={}, idxParentSubtask=null} = action.payload;
@@ -244,11 +246,13 @@ const updateProjects = (state = initialState, action) => {
 			const {id: idTask=null, idParentTask: idParent = null} = action.payload;
 			let idEditTask=null;
 			if (!idParent && idParent !== 0) {
-				idEditTask = idTask;
+				//idEditTask = idTask;
+				idEditTask = currProject.listTasks.findIndex(({id}) => id === idTask);
 			} else {
 				idEditTask = currProject.listTasks.findIndex(({id, idParentTask=null}) => 
 												idParentTask === idParent  && id === idTask);
 			}
+			
 			const novListTasks = [...currProject.listTasks.slice(0, idEditTask), action.payload,
 				...currProject.listTasks.slice(idEditTask+1)];
 			const novProject = {...currProject, listTasks: novListTasks};
@@ -266,7 +270,8 @@ const updateProjects = (state = initialState, action) => {
 			let idxEditTask=null;
 
 			if (!idxParent && idxParent !== 0) {
-				idxEditTask = idxTask;
+				//idxEditTask = idxTask;
+				idxEditTask = crtProject.listTasks.findIndex(({id}) => id === idxTask);
 			} else {
 				idxEditTask = crtProject.listTasks.findIndex(({id, idParentTask=null}) => 
 												idParentTask === idxParent  && id === idxTask);

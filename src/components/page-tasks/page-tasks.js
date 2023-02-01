@@ -36,7 +36,8 @@ const PageTasks = (props) => {
 		activeColumn.listTasks.splice(idx, 1);
 		const idxDrop = column.listTasks.indexOf(task);
 		//const sortedTask = {...activeTask, status: column.title};
-		column.listTasks.splice(idxDrop+1, 0, activeTask);
+		column.listTasks.splice(idxDrop+1, 0, {...activeTask, status: column.title});
+		console.log(column, 'column');
 		setColumnStatus(columnStatus.map(el => {
 			switch (el.id) {
 				case column.id:
@@ -91,7 +92,7 @@ const PageTasks = (props) => {
 				...dataProjects[idxCurProject],
 				listTasks: newListTasks
 			};
-			dispatch(changeProject(newDataProject));
+			dispatch(changeProject({newDataProject, listTasksStatus: columnStatus}));
 		}
 	};
 

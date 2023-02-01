@@ -35,6 +35,11 @@ const ModalTask = (props) => {
 	}, []);
 
 	useEffect(() => {
+		setTask(dataTask);
+		console.log(dataTask, 999);
+	}, [dataTask]);
+
+	useEffect(() => {
 		if (!flagCreation) {
 			let activeColumn = listTasksByStatus?.find(({title}) => title === task.status);
 
@@ -136,8 +141,8 @@ const ModalTask = (props) => {
 							!flagCreation ? (
 								<tr className='rowTask'>
 									<td colSpan={2}>
-										{task.idParentTask || task.idParentTask === 0 ? 
-											`№ ${task.idParentTask + 1}.${task.id + 1}` : `№ ${task.id + 1}`}
+										{task?.idParentTask || task?.idParentTask === 0 ? 
+											`№ ${task?.idParentTask + 1}.${task?.id + 1}` : `№ ${task?.id + 1}`}
 									</td>
 								</tr>) : null
 						}
@@ -153,7 +158,7 @@ const ModalTask = (props) => {
 											value={task?.title}
 											onChange={e => setTask({...task, title: e.target.value})}
 										/>
-								) : task.title}
+								) : task?.title}
 							</td>
 						</tr>
 						<tr className='rowTask'>
@@ -167,7 +172,7 @@ const ModalTask = (props) => {
 											value={task?.description}
 											onChange={e => setTask({...task, description: e.target.value})}
 										/>
-									) : task.description}
+									) : task?.description}
 							</td>
 						</tr>
 						<tr className='rowTask'>
@@ -177,7 +182,7 @@ const ModalTask = (props) => {
 									flagCreation || flagEdite ? (
 										<DateSelector date={task?.timeCreation} 
 															setDate={(date) => setTask({...task, timeCreation: date})} />
-									) : task.timeCreation ? dateTransform(task.timeCreation) : null
+									) : task?.timeCreation ? dateTransform(task.timeCreation) : null
 								}
 							</td>
 						</tr>
@@ -199,7 +204,7 @@ const ModalTask = (props) => {
 										<DateSelector date={flagCreation ? 1734909669 : task.timeEnding}
 															flagEnding={true}
 															setDate={(date) => setTask({...task, timeEnding: date})} />
-									) : task.timeEnding ? dateTransform(task.timeEnding) : null
+									) : task?.timeEnding ? dateTransform(task.timeEnding) : null
 								}
 							</td>
 						</tr>
@@ -232,7 +237,7 @@ const ModalTask = (props) => {
 															option: {padding: '8px 7px 7px 13px', lineHeight: '19px', color: '#062A3F'}
 														}}
 											/>
-										) : task.priority}
+										) : task?.priority}
 								</div>
 							</td>
 						</tr>
@@ -265,7 +270,7 @@ const ModalTask = (props) => {
 															option: {padding: '8px 7px 7px 13px', lineHeight: '19px', color: '#062A3F'}
 														}}
 											/>
-										) : showStatus(task.status)}
+										) : showStatus(task?.status)}
 								</div>
 							</td>
 						</tr>
@@ -288,7 +293,7 @@ const ModalTask = (props) => {
 												onClick={() => onEditeTask(task)}>
 										Редактировать
 									</button>
-								) : null 
+								) : null
 							}
 							<button className='btnCancel' type='button'
 										onClick={() => onSwitch(false)}>
@@ -315,8 +320,10 @@ const ModalTask = (props) => {
 
 export default ModalTask;
 
+
 const ListComments = (props) => {
 	const {task, comments, onAnswer, flagAnswer, idActiveComment, setFlagAnswer} = props;
+	console.log(task, 555);
 
 	return (
 		<ul className='listComments'>

@@ -5,7 +5,7 @@ import {addComment} from '../../actions';
 
 import './form-comments.scss';
 
-const FormComments = ({task, flagAnswer, setFlagAnswer, idActiveComment}) => {
+const FormComments = ({task, flagAnswer, setFlagAnswer=()=>{}, idActiveComment}) => {
 
 	const dispatch = useDispatch();
 	const [author, setAuthor] = useState('');
