@@ -46,7 +46,7 @@ const FormComments = ({task, flagAnswer, setFlagAnswer=()=>{}, idActiveComment})
 			<form className='formComments'
 					onSubmit={onSubmit}>
 				<div className='blockAuthorComment'>
-					<label for='author' className='labelAuthor'>
+					<label htmlFor='author' className='labelAuthor'>
 						Автор:
 					</label>
 					<input type='text' id='author' name='author'
@@ -54,7 +54,7 @@ const FormComments = ({task, flagAnswer, setFlagAnswer=()=>{}, idActiveComment})
 								onChange={(e) => setAuthor(e.target.value)} />
 				</div>
 				<div className='blockTextComment'>
-					<label for='textComment' className='labelTextComment'>
+					<label htmlFor='textComment' className='labelTextComment'>
 						Комментарий:
 					</label>
 					<textarea type='text' id='textComment' name='textComment'

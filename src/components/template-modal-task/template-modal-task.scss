@@ -1,0 +1,171 @@
+.boxModalTask {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	box-sizing: border-box;
+	padding: 35px 25px 30px;
+	width: 520px;//570px;
+	background-color: #fff;
+	border-radius: 10px;	
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modalClose {
+	position: absolute;
+	top: 19px;
+	right: 19px;
+	width: 20px;
+	height: 20px;
+	border: none;
+	background-color:  transparent;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&::before, &::after {
+		content: "";
+		position: absolute;
+		left: -2px;
+		top: 8px;
+		width: 24px;
+		height: 3px;
+		background-color: rgba(0, 0, 0, 0.65);
+	}
+	&::before {
+		transform:rotate(45deg);
+	}
+	&::after {
+		transform:rotate(-45deg);
+	}
+}
+
+
+.tableTask {
+	margin-bottom: 19px;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.headingTableTasks {
+	padding-bottom: 16px;
+	font-size: 22px;
+	font-weight: 700;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.rowTask {
+	td {
+		vertical-align: top;
+		padding: 11px 0;
+		&:first-of-type {
+			display: inline-flex;
+			box-sizing: border-box;
+			padding-right: 15px;
+			min-width: 170px;
+			font-weight: 700;
+		}
+	}
+	.tdHeaderTask {
+		padding-top: 14px;
+	}
+	.tdDescripTask {
+		padding-top: 16px;
+	}
+	.contentSatusTask {
+		display: inline-flex;
+		min-width: 120px;//143px;
+	}
+	.contentPriorityTask {
+		display: inline-flex;
+		min-width: 120px;
+	}
+}
+
+.headerTask {
+	box-sizing: border-box;
+	padding: 9px;
+	width: 100%;
+	height: 45px;
+	border: none;
+	border-radius: 4px;
+	outline: none;
+	background-color: #f2f2f2;
+	&:hover {
+		background-color: #e5e5e5;
+	}
+	&:active,
+	&:focus	{
+		background-image: 
+			linear-gradient(to top, #e5e5e5 4px, transparent 4px),
+			linear-gradient(to bottom, #e5e5e5 4px, transparent 4px),
+			linear-gradient(to right, #e5e5e5 4px, transparent 4px),
+			linear-gradient(to left, #e5e5e5 4px, #ffffff 4px);
+		background-repeat: no-repeat;
+		background-position: 0 0;
+	}
+}
+
+.textareaDescription {
+	display: block;
+	box-sizing: border-box;
+	padding: 12px;
+	width: 100%;
+	height: 80px;
+	border: 1px solid #f4f4f4;
+	border-radius: 4px;
+	outline: none;
+	resize: none;
+	background-color: #f2f2f2;
+	&:hover {
+		background-color: #e5e5e5;
+	}
+	&:active,
+	&:focus	{
+		background-image: linear-gradient(to top, #e5e5e5 4px, transparent 4px),
+			linear-gradient(to bottom, #e5e5e5 4px, transparent 4px),
+			linear-gradient(to right, #e5e5e5 4px, transparent 4px),
+			linear-gradient(to left, #e5e5e5 4px, #ffffff 4px);
+		background-repeat: no-repeat;
+		background-position: 0 0;
+	}
+}
+
+.containerBtnsTask {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.btnConfirm,
+.btnCancel {
+	padding: 12px 27px;
+	font-size: 18px;
+	color: #fff;
+	border-radius: 13px;
+	background: rgb(253, 116, 61);
+	&:hover,
+	&:focus {
+		opacity: 0.8;
+	}
+}
+
+.btnConfirm {
+	margin-right: 14px;
+	background: rgb(74, 190, 80);
+}
+
+.messErr {
+	margin-bottom: 12px;
+	text-align: center;
+	width: 100%;
+	color: rgb(252, 47, 47);
+}
+
+.containerListsComments {
+	width: 85%;
+	& ul:first-child {
+		width: 100%;
+	}
+}

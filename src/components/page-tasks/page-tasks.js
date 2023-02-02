@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import {changeProject} from '../../actions';
 
 import ModalTask from '../modal-task';
@@ -27,7 +26,28 @@ const PageTasks = (props) => {
 	useEffect(() => {
 		setColumnStatus(listTasksByStatus);
 	}, [listTasksByStatus]);
+
 	//drag and drop
+	const updateProject = (columnStatus, dataProjects, idxCurProject) => {
+		let newListTasks =  columnStatus.map(({listTasks}) => listTasks).flat(Infinity);
+		let newDataProject = {
+			...dataProjects[idxCurProject],
+			listTasks: newListTasks
+		};
+		dispatch(changeProject({newDataProject, listTasksStatus: columnStatus}));
+	};
+
+	const renewColumnStatus = (el, idx, arr, column, activeColumn) => {
+		switch (el.id) {
+			case column.id:
+				return column;
+			case activeColumn.id:
+				return activeColumn;
+			default:
+				return el;
+		}
+	};
+
 	const onDrop = (e, column, task) => {
 		e.preventDefault();
 		e.target.style.boxShadow = 'none';
@@ -38,16 +58,8 @@ const PageTasks = (props) => {
 		//const sortedTask = {...activeTask, status: column.title};
 		column.listTasks.splice(idxDrop+1, 0, {...activeTask, status: column.title});
 		console.log(column, 'column');
-		setColumnStatus(columnStatus.map(el => {
-			switch (el.id) {
-				case column.id:
-					return column;
-				case activeColumn.id:
-					return activeColumn;
-				default:
-					return el;
-			}
-		}));
+		setColumnStatus(columnStatus.map((el, idx, arr) => renewColumnStatus(el, idx, arr, column, activeColumn)));
+		updateProject(columnStatus, dataProjects, idxCurProject);
 	}; 
 
 	const onDragStart = (e, column, task) => {
@@ -76,23 +88,8 @@ const PageTasks = (props) => {
 			column.listTasks.push(sortedTask);
 			const idx = activeColumn.listTasks.indexOf(activeTask);
 			activeColumn.listTasks.splice(idx, 1);
-			setColumnStatus(columnStatus.map(el => {
-				switch (el.id) {
-					case column.id:
-						return column;
-					case activeColumn.id:
-						return activeColumn;
-					default:
-						return el;
-				}
-			}));
-
-			let newListTasks =  columnStatus.map(({listTasks}) => listTasks).flat(Infinity);
-			let newDataProject = {
-				...dataProjects[idxCurProject],
-				listTasks: newListTasks
-			};
-			dispatch(changeProject({newDataProject, listTasksStatus: columnStatus}));
+			setColumnStatus(columnStatus.map((el, idx, arr) => renewColumnStatus(el, idx, arr, column, activeColumn)));
+			updateProject(columnStatus, dataProjects, idxCurProject);
 		}
 	};
 
@@ -179,10 +176,6 @@ const PageTasks = (props) => {
 														+ подзадача
 													</button>) : null
 												}
-												{/* <button className='btnDetails' type='button'
-															onClick={() => onShowDetails(task)}>
-													Подробнее
-												</button> */}
 												<button className='btnEditing' type='button'
 															onClick={() => onEditeTask(task)}>
 													<p className='svgBoxEditing'>

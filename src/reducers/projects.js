@@ -219,10 +219,11 @@ const updateProjects = (state = initialState, action) => {
 					id: parentTask.subtasks.length
 				}
 				newBasicTask = {...parentTask, subtasks: [...parentTask.subtasks, newSubtask]};
+				let idexEditTask = curProject.listTasks.findIndex(({id}) => id === idxParentSubtask);
 				novelDataProject = {
 					...curProject, 
-					listTasks: [...curProject.listTasks.slice(0, idxParentSubtask), newBasicTask,
-									...curProject.listTasks.slice(idxParentSubtask + 1), newSubtask]};
+					listTasks: [...curProject.listTasks.slice(0, idexEditTask), newBasicTask,
+									...curProject.listTasks.slice(idexEditTask + 1), newSubtask]};
 			} else {
 				newBasicTask = {
 					...task,
