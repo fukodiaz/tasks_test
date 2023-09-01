@@ -18,7 +18,7 @@ root.render(
 	<Provider store={store}>
 		<ErrorBoundry>
 			<TasksServiceProvider value={tasksService}>
-				<Router basename='/tasks_test/'>
+				<Router basename=''>
 						<App />
 				</Router>
 			</TasksServiceProvider>

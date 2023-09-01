@@ -10,3 +10,6 @@
 8. сборка проекта осуществялась через webpack;
 
 ссылка на сайт https://fukodiaz.github.io/tasks_test/
+# Preview
+<image src='assets/tasks_main.png' alt='Страница с проектами'>
+<image src='assets/task_modal.png' alt='Модальное окно задачи'>
